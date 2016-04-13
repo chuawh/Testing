@@ -34,7 +34,7 @@ app.post('/users', function (req, res,next) {
 
   res.send('You are lucky!!!!');
   
-  triggerIOT(req.body.data.id);
+  triggerIOT();
 
 });
 
