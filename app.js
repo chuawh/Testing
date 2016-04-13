@@ -33,26 +33,29 @@ app.get('/',function(req, res, next) {
 app.post('/users', function (req, res,next) {
 
   res.send('You are lucky!!!!');
-  console.log('The Spark Webhook Post is: ');
-  console.log(req.body);      //  JSON data
   
-  getMsg(req.body.data.id);
+  triggerIOT(req.body.data.id);
 
 });
 
 
 
-function getMsg(msgId){
-
-var token='Bearer NTE5YWNhMDUtZDUzYy00MDU1LTgzYWMtNGYyOGJhNjgxMDU3NTYxMjA0MmMtM2Y0';
+function triggerIOT(){
 
 request({
-    url: 'https://api.ciscospark.com/v1/messages/' + msgId,
-    method: 'GET', 
+    url: 'https://iotdemo.tpcall.me/iotevent',
+    method: 'POST', 
+    json:true,
     headers:{
-         'Authorization' : token,
          'Content-type' : 'application/json'
-         }
+         },
+    body:{
+        name: 'Alarm',
+        geo: 'ABC',
+        building:'A Tower',
+        level:'10th floor',
+        atag:'A123'
+    }     
 }, function(error, res){
     if(error) {
         console.log(error);
@@ -60,35 +63,7 @@ request({
         console.log('The response code is ' + res.statusCode + '\n');
         console.log('The json body is: ' + '\n' + res.body + '\n');
     }
-    var jsonText=JSON.parse(res.body);
-    console.log('The chat message is: ' + jsonText.text + '\n');
-    //postHttp(textMsg.text); 
-
-    var mtext=jsonText.text;
-    var str1 = mtext.split(" ");
-    var smsBody=str1[2]+ " " + str1[3];
-    console.log(str1[0]);
-    console.log(str1[1]);
-    console.log(smsBody);
-
-    if (str1[0]=='/inform') {
-      postMsg(jsonText.roomId, 'Please wait while we connect your call to ' + str1[1]);
-      postHttp();
-      postHttpSMS(smsBody);
-
-     }else {
-        console.log('I will not do anything');
-     
-       }
-     /*
-
-     if (str1[0]=='/sms') {
-      postMsg(jsonText.roomId, 'We are sending your SMS to ' + str1[1]);
-     }else {
-        console.log('I will not do anything');
-       }
-    postHttp();  */
-
+    
 });
 
 };
