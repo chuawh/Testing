@@ -28,7 +28,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 
 var server = http.createServer(function (request, response) {
-    var tropo = new TropoWebAPI();
+    var tropo = new tropo_webapi();
     tropo.say("Welcome to Tropo!");
     response.end(TropoJSON(tropo));
 }).listen(8000);
