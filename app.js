@@ -5,6 +5,8 @@ var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var request = require('request');
+var http = require('http');
+var tropo_webapi = require('tropo-webapi');
 
 //var routes = require('./routes/index');
 //var users = require('./routes/users');
@@ -22,6 +24,15 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
+
+
+
+var server = http.createServer(function (request, response) {
+    var tropo = new TropoWebAPI();
+    tropo.say("Welcome to Tropo!");
+    response.end(TropoJSON(tropo));
+}).listen(8000);
+
 
 //app.use('/', routes);
 
@@ -187,8 +198,9 @@ app.use(function(err, req, res, next) {
   });
 });
 
+/*
 app.listen(process.env.PORT || 3000, function () {
   console.log('Example app listening on port 3000!');
 });
-
+*/
 module.exports = app;
