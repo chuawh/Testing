@@ -31,7 +31,7 @@ var server = http.createServer(function (request, response) {
     var tropo = new tropo_webapi();
     tropo.say("Welcome to Tropo!");
     response.end(TropoJSON(tropo));
-}).listen(8000);
+}).listen(3000);
 
 
 //app.use('/', routes);
