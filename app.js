@@ -26,14 +26,6 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 
-
-var server = http.createServer(function (request, response) {
-    var tropo = new tropo_webapi();
-    tropo.say("Welcome to Tropo!");
-    response.end(TropoJSON(tropo));
-}).listen(3000);
-
-
 //app.use('/', routes);
 
 app.get('/',function(req, res, next) {
@@ -43,127 +35,10 @@ app.get('/',function(req, res, next) {
 
 app.post('/users', function (req, res,next) {
 
-  res.send('You are lucky!!!!');
-  
-  triggerIOT();
-
+    var tropo = new tropo_webapi();
+    tropo.say("Welcome to Tropo!");
+    response.end(TropoJSON(tropo));
 });
-
-
-
-function triggerIOT(){
-
-request({
-    url: 'https://iotdemo.tpcall.me/iotevent',
-    method: 'POST', 
-    json:true,
-    headers:{
-         'Content-type' : 'application/json'
-         },
-    body:{
-        name: 'Alarm',
-        geo: 'ABC',
-        building:'A Tower',
-        level:'10th floor',
-        atag:'A123'
-    }     
-}, function(error, res){
-    if(error) {
-        console.log(error);
-    } else {
-        console.log('The response code is ' + res.statusCode + '\n');
-        console.log('The json body is: ' + '\n' + res.body + '\n');
-    }
-    
-});
-
-};
-
-
-/*
-function postHttp(msg){
-
-var token='6248436a7461745a50424e6f615363576162666672796e436871794e68454a514a444a4162666e784b565851';
-
-request({
-    url: 'https://api.tropo.com/1.0/sessions?action=create' + '&token=' + token + '&txt=' + msg,
-    method: 'POST', 
-}, function(error, response, body){
-    if(error) {
-        console.log(error);
-    } else {
-        console.log(response.statusCode, body);
-    }
-});
-};*/
-
-function postHttp(){
-
-var token='41527455414c526e4c4b7243517a5a564a626d774c686647616f67707553777275647a7841774d49485a4157';
-var mobile='6597809414';
-var sparkNumber='84484189@ciscospark.com';
-
-request({
-    url: 'https://api.tropo.com/1.0/sessions?action=create' + '&token=' + token + '&mobile=' + mobile + '&sparkNumber=' + sparkNumber,
-    method: 'POST', 
-}, function(error, response, body){
-    if(error) {
-        console.log(error);
-    } else {
-        console.log(response.statusCode, body);
-    }
-});
-};
-
-function postHttpSMS(smsText){
-var token='0adf63b6b1b01346a9351aa22b581ee7a948d813c82d1cf9300d2a2c046dcfe50d7944cee5e527052b4bde36';
-var mobile='6597809414';
-
-request({
-    url: 'https://api.tropo.com/1.0/sessions?action=create' + '&token=' + token + '&mobile=' + mobile + '&data=' + smsText,
-    method: 'POST', 
-}, function(error, response, body){
-    if(error) {
-        console.log(error);
-    } else {
-        console.log(response.statusCode, body);
-    }
-});
-};
-
-
-
-
-
-function postMsg(roomId,msgContent){
-
-var token='Bearer NTE5YWNhMDUtZDUzYy00MDU1LTgzYWMtNGYyOGJhNjgxMDU3NTYxMjA0MmMtM2Y0';
-
-request({
-    url: 'https://api.ciscospark.com/v1/messages/',
-    method: 'POST', 
-    json:true,
-    headers:{
-         'Authorization' : token,
-         'Content-type' : 'application/json'
-         },
-    body:{
-        roomId: roomId,
-        text: msgContent
-    }     
-}, function(error, res){
-    if(error) {
-        console.log(error);
-    } else {
-        console.log('The response code is ' + res.statusCode + '\n')
-        console.log('The json body is: ' + '\n' + res.body + '\n');
-    }
-
-});
-
-};
-
-
 
 
 
@@ -198,9 +73,9 @@ app.use(function(err, req, res, next) {
   });
 });
 
-/*
+
 app.listen(process.env.PORT || 3000, function () {
   console.log('Example app listening on port 3000!');
 });
-*/
+
 module.exports = app;
