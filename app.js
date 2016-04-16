@@ -5,8 +5,10 @@ var server = http.createServer(function (request, response) {
     var tropo = new tropo_webapi();
     tropo.say("Welcome to Tropo!");
     response.end(TropoJSON(tropo));
+    console.log(request.body);
+    console.log(response.bofy);
 }).listen(3000);
 
-
+console.log("Server is listening port 3000");
 
 
