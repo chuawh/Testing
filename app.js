@@ -3,7 +3,7 @@ var tropo_webapi = require('tropo-webapi');
  
 var server = http.createServer(function (request, response) {
     var tropo = new TropoWebAPI();
-    tropo.say("Welcome to Singapore!",{voice:"veronica"});
+    tropo.say("Welcome to Singapore!");
     response.end(TropoJSON(tropo));
     //console.log(request);
     //console.log(response);
